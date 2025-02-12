@@ -2,46 +2,49 @@
 session_start();
 
 // create array w/ 3 number values
-
-//a) create form to modify values of 1 specific position 
-
-
-// que se mantenga las modificaciones en el array
-
+if(isset($_SESSION ['numbers'])){
+    $_SESSION['numbers']= [10,20,30];
+}
+//create form 
+//to modify values of 1 specific position 
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['modify'])) { // que se mantenga las modificaciones en el array
+        $indice = intval($_POST['indice']);
+        $newValue = intval($_POST['newValue']);
+        if (isset($_SESSION['numbers'][$indice])) {
+            $_SESSION['numbers'][$indice] = $newValue;
+    }
 //add a botón para calcular el valor medio
+}else if (isset($_POST['average'])){
+    $average = array_sum($_SESSION['numbers']) / count($_SESSION['numbers']);
+}
 
 ?>
-<!--  -->
 
-
-<!-- -->
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <title>Modify array</title>
-    </head>
+<head>
+    <title>Modify array</title>
+</head>
     <body>
         <h2>Modify array</h2>
         <form action="Ejercicio2.php" method="POST">
-        <label for="number">Position to modify: </label>
-        <input type="integer" id=" number" name="number" value="<?php echo isset($_POST['number']) ? $_POST['nu']: ''; ?>" </input>
-        <form action="Ejercicio2.php" method="POST">
+        <label for="indice">Position to modify: </label>
+        <input type="number" id="indice" name="indice" min="0" max="2" </input>
 
-        <h3>Position to modify: </h3>
-        <select name="product" id="product">
-            <option value="milk">Milk </option>
-            <option value="softDrink">Soft drink </option>
-        </select>
-
-        <h3>New value: </h3>
-        <input type="text" id="value" name="value"><br><br>
-        <input type="submit" value="modify" name="modify">
-        <input type="submit" value="average" name="average">
-        <input type="reset" value="reset">
+        <label for="newValue">New value: </label>
+        <input type="number" id="newValue" name="newValue" </input>
+        
+        <input type="submit" value="Modify" name="modify">
+        <input type="submit" value="Average" name="average">
         </form>
-        <p>Current array: </p>
-        echo $_SESSION[]
+
+        <h2>Arrays values: </h2>
+        <p><?php print_r($_SESSION['numbers']); ?></p>
+
+        <?php if (isset($average)): ?>
+            <h2>Average value:<?php echo$average ?> </h2>
+        <?php endif; ?>
 
     </body>
 
