@@ -2,7 +2,7 @@
 session_start();
 
 // create array w/ 3 number values
-if(isset($_SESSION ['numbers'])){
+if(!isset($_SESSION ['numbers'])){
     $_SESSION['numbers']= [10,20,30];
 }
 //create form 
@@ -13,12 +13,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $newValue = intval($_POST['newValue']);
         if (isset($_SESSION['numbers'][$indice])) {
             $_SESSION['numbers'][$indice] = $newValue;
-    }
+        }
 //add a botón para calcular el valor medio
-}else if (isset($_POST['average'])){
-    $average = array_sum($_SESSION['numbers']) / count($_SESSION['numbers']);
+    }else if (isset($_POST['average'])){
+        $average = array_sum($_SESSION['numbers']) / count($_SESSION['numbers']);
+    }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -30,10 +30,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h2>Modify array</h2>
         <form action="Ejercicio2.php" method="POST">
         <label for="indice">Position to modify: </label>
-        <input type="number" id="indice" name="indice" min="0" max="2" </input>
+        <input type="number" id="indice" name="indice" min="0" max="2">
 
         <label for="newValue">New value: </label>
-        <input type="number" id="newValue" name="newValue" </input>
+        <input type="number" id="newValue" name="newValue">
         
         <input type="submit" value="Modify" name="modify">
         <input type="submit" value="Average" name="average">
