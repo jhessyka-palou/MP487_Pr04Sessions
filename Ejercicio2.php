@@ -31,12 +31,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form action="Ejercicio2.php" method="POST">
         <label for="indice">Position to modify: </label>
         <input type="number" id="indice" name="indice" min="0" max="2">
-
+        <br><br>
         <label for="newValue">New value: </label>
         <input type="number" id="newValue" name="newValue">
-        
+        <br><br>
         <input type="submit" value="Modify" name="modify">
         <input type="submit" value="Average" name="average">
+
+        <input type="reset" value="Reset">
         </form>
 
         <h2>Arrays values: </h2>
